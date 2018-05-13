@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dvd.DVDController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" onAction="#ShowBooks" text="DVDs" />
+        <Menu mnemonicParsing="false" onAction="#ShowAccount" text="Account" />
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About NEU" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.32303839732888145" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane maxWidth="500.0">
+          <children>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="112.0" prefWidth="296.0" style="&#10;" text="DVDs" textAlignment="CENTER" textFill="#448aff" wrapText="false" AnchorPane.bottomAnchor="654.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <font>
+                <Font name="Arial Bold" size="60.0" fx:id="x1" />
+              </font>
+            </Label>
+                  <Label layoutX="65.0" layoutY="283.0" text="Library :" AnchorPane.leftAnchor="65.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="34.0" layoutY="384.0" text="DVD Title :" AnchorPane.leftAnchor="34.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="164.0" layoutY="284.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField layoutX="164.0" layoutY="382.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" text="Search">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="74.0" layoutY="474.0" text="Genre :">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox layoutX="164.0" layoutY="478.0" prefWidth="150.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0" />
+          </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+        </AnchorPane>
+        <ScrollPane fitToHeight="true">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0">
+                     <children>
+                        <TableView fx:id="dvdTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="IdColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="DVDId" />
+                              <TableColumn fx:id="TitleColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Title" />
+                              <TableColumn fx:id="ReleaseYearColumn" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Release Year" />
+                              <TableColumn fx:id="DirectorColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Director" />
+                              <TableColumn fx:id="GenreColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Genre" />
+                              <TableColumn fx:id="CastColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Cast" />
+                              <TableColumn fx:id="LibraryColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Library" />
+                           </columns>
+                        </TableView>
+                     </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+      </items>
+    </SplitPane>
+  </children>
+</VBox>

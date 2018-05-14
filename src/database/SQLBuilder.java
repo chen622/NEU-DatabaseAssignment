@@ -48,7 +48,7 @@ public class SQLBuilder {
                 +entityID+ ","
                 +DateFormat.getDateInstance().format(new Date())+"," +
                 "(SELECT library_name FROM dvd_entity WHERE entity_id="+entityID+")," +
-                "(SELECT price FROM category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
+                "(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
                 ")";
         queries[1]="UPDATE dvd_entity SET library_name=null WHERE entity_id="+entityID;
 

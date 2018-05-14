@@ -49,7 +49,7 @@
                                 <Font size="24.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="145.0" layoutY="382.0" prefHeight="36.0" prefWidth="226.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="12.0">
+                        <TextField fx:id="rentDVDId" layoutX="145.0" layoutY="382.0" prefHeight="36.0" prefWidth="226.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="12.0">
                             <font>
                                 <Font size="18.0" />
                             </font>

@@ -41,11 +41,13 @@ public class Database {
     /**
      * Execute the operation to the database only.dvd_prop_id_constraint
      * @param sql The operation that user want
-     * @return The resultSet of the operation
+     * @return The success or not of the operation
      */
     public boolean execute(String sql) {
         try {
-            return statement.execute(sql);
+            System.out.println(sql);
+            statement.execute(sql);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -47,7 +47,7 @@ public class SQLBuilder {
         queries[0]="INSERT INTO rental (member_id,entity_id,date_taken_from ,library_taken_from,money ) VALUES " +
                 "("+memberID+","
                 +entityID+ ","
-                +today()+"," +
+                +"'"+today()+"'," +
                 "(SELECT library_name FROM dvd_entity WHERE entity_id="+entityID+")," +
                 "(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
                 ")";
@@ -59,7 +59,7 @@ public class SQLBuilder {
 
     public static final String returnDVD(int entityID, String toLibrary){
         return "UPDATE rental SET (date_return_on,library_return_on) VALUES ("
-                +today()+"," + toLibrary+
+                +"'"+today()+"',"  + toLibrary+
                 ") WHERE date_return_on=NULL AND library_return_on=NULL AND entity_id="+entityID;
     }
 

@@ -27,7 +27,7 @@ public class Operator {
 
 
     public static ArrayList<DVD> dvds(String library, String title, String genre) throws SQLException {
-        String whereCondition = "WHERE "
+        String whereCondition = "AND "
                 + ((library == null || library.equals("") ? "" : "library_name LIKE '%" + library + "%' AND ")
                 + (title == null || title.equals("") ? "" : "title LIKE '%" + title + "%' AND ")
                 + (genre == null || genre.equals("") ? "" : "genre='" + genre +"'"));
@@ -36,7 +36,7 @@ public class Operator {
         if(whereCondition.endsWith("WHERE "))whereCondition="";
         // WHERE CONDITION 直接写为数据库的条件 为空则返回所有
         ResultSet resultSet = database.executeQuery(
-                "SELECT * FROM (SELECT *, (SELECT GROUP_CONCAT(cast.cast) FROM cast WHERE cast.prop_id=dvd_entity.prop_id) as cast, (SELECT GROUP_CONCAT(genre_type.genre_type_name) as genres FROM genre_type,dvd_genre WHERE genre_type.genre_type_id=dvd_genre.genre_type_id AND dvd_genre.prop_id=dvd_entity.prop_id) as genre FROM dvd_entity JOIN dvd_prop USING(prop_id)) RES "
+                "SELECT * FROM (SELECT *, (SELECT GROUP_CONCAT(cast.cast) FROM cast WHERE cast.prop_id=dvd_entity.prop_id) as cast, (SELECT GROUP_CONCAT(genre_type.genre_type_name) as genres FROM genre_type,dvd_genre WHERE genre_type.genre_type_id=dvd_genre.genre_type_id AND dvd_genre.prop_id=dvd_entity.prop_id) as genre FROM dvd_entity JOIN dvd_prop USING(prop_id)) RES WHERE library_name IS NOT NULL "
                         + ((whereCondition == null || whereCondition.equals("")) ? "" : whereCondition)
         );
         ArrayList<DVD> dvds = new ArrayList<>();

@@ -1,6 +1,12 @@
 package database;
 
+import java.io.InputStream;
+import java.io.Reader;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.sql.*;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SQLBuilder {
@@ -54,5 +60,9 @@ public class SQLBuilder {
         return "UPDATE rental SET (date_return_on,library_return_on) VALUES ("
                 +DateFormat.getDateInstance().format(new Date())+"," + toLibrary+
                 ") WHERE date_return_on=NULL AND library_return_on=NULL AND entity_id="+entityID;
+    }
+
+    public static PreparedStatement getAccountDetails(int memberID){
+        return null;
     }
 }

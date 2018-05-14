@@ -10,30 +10,36 @@ public class Operator {
 
     private static Database database;
 
-    public static void init(){
-        database=new Database();
+    public static void init() {
+        database = new Database();
     }
 
-    public static boolean rentDVD(int memberID, int entityID){
-        String[] queries= SQLBuilder.rentDVD(memberID, entityID);
+    public static boolean rentDVD(int memberID, int entityID) {
+        String[] queries = SQLBuilder.rentDVD(memberID, entityID);
         return database.execute(queries[0]) && database.execute(queries[1]) && database.execute(queries[2]);
     }
 
-    public static boolean returnDVD(int entityID, String toLibrary){
+    public static boolean returnDVD(int entityID, String toLibrary) {
         return database.execute(SQLBuilder.returnDVD(entityID, toLibrary));
     }
 
 
-    public static DVD[] dvds(String whereCondition) throws SQLException {
+    public static DVD[] dvds(String library, String title, String genre) throws SQLException {
+        String whereCondition = "WHERE "
+                + ((library == null || library.equals("") ? "" : "library_name LIKE " + library + " AND")
+                + (title == null || title.equals("") ? "" : "title LIKE " + title + " AND")
+                + (genre == null || genre.equals("") ? "" : "genre=" + genre));
+
+        if(whereCondition.endsWith("AND"))whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
         // WHERE CONDITION 直接写为数据库的条件 为空则返回所有
-        ResultSet resultSet=database.executeQuery(
+        ResultSet resultSet = database.executeQuery(
                 "SELECT *, (SELECT GROUP_CONCAT(cast.cast) FROM cast WHERE cast.prop_id=dvd_entity.prop_id) as cast, (SELECT GROUP_CONCAT(genre_type.genre_type_name) as genres FROM genre_type,dvd_genre WHERE genre_type.genre_type_id=dvd_genre.genre_type_id AND dvd_genre.prop_id=dvd_entity.prop_id) as genre FROM dvd_entity JOIN dvd_prop ON dvd_entity.prop_id=dvd_prop.prop_id "
-                + ((whereCondition==null||whereCondition.equals(""))?"":whereCondition)
+                        + ((whereCondition == null || whereCondition.equals("")) ? "" : whereCondition)
         );
-        DVD[] dvds=new DVD[resultSet.getFetchSize()];
-        int i =0;
-        while(resultSet.next()){
-            dvds[i]=new DVD(
+        DVD[] dvds = new DVD[resultSet.getFetchSize()];
+        int i = 0;
+        while (resultSet.next()) {
+            dvds[i] = new DVD(
                     resultSet.getInt("entity_id"),
                     resultSet.getString("title"),
                     resultSet.getString("release_date"),
@@ -47,15 +53,22 @@ public class Operator {
         return dvds;
     }
 
-    public static Rental[] rentals(String whereCondition) throws SQLException {
-        ResultSet resultSet=database.executeQuery(
+    public static Rental[] rentals(Integer memberID, String library, String title) throws SQLException {
+        String whereCondition = "WHERE "
+                + ((library == null || library.equals("") ? "" : "library_name LIKE " + library + " AND")
+                + (title == null || title.equals("") ? "" : "title LIKE " + title + " AND")
+                + (memberID == null || memberID.equals("") ? "" : "member_id=" + memberID));
+
+        if(whereCondition.endsWith("AND"))whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
+
+        ResultSet resultSet = database.executeQuery(
                 "SELECT * FROM rental,member,dvd_entity,dvd_prop WHERE rental.member_id=member.member_id AND rental.entity_id=dvd_entity.entity_id AND dvd_entity.prop_id=dvd_prop.prop_id"
-                + ((whereCondition==null||whereCondition.equals(""))?"":whereCondition)
+                        + ((whereCondition == null || whereCondition.equals("")) ? "" : whereCondition)
         );
-        Rental[] rentals=new Rental[resultSet.getFetchSize()];
-        int i =0;
-        while(resultSet.next()){
-            rentals[i]=new Rental(
+        Rental[] rentals = new Rental[resultSet.getFetchSize()];
+        int i = 0;
+        while (resultSet.next()) {
+            rentals[i] = new Rental(
                     resultSet.getString("library_name"),
                     resultSet.getString("title"),
                     resultSet.getString("member_name"),
@@ -65,4 +78,6 @@ public class Operator {
         }
         return rentals;
     }
+
+    
 }

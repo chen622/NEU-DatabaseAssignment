@@ -43,24 +43,28 @@ public class SQLBuilder {
     }
 
     public static final String[] rentDVD(int memberID, int entityID){
-        String[] queries = new String[3];
-        queries[0]="INSERT INTO rental (member_id,entity_id,date_taken_from,library_taken_from,money ) VALUES " +
-                "("+memberID+","
-                +entityID+ ","
-                +"'"+today()+"'," +
-                "(SELECT library_name FROM dvd_entity WHERE dvd_entity.entity_id="+entityID+")," +
-                "(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
-                ")";
+        String[] queries = new String[2];
+        queries[0]="INSERT INTO rental\n" +
+                "  (member_id,entity_id,date_taken_from,library_taken_from,money)" +
+                "VALUES\n" +
+                "  ("+memberID+", "+entityID+", CURDATE(), (SELECT library_name" +
+                "    FROM dvd_entity" +
+                "    WHERE dvd_entity.entity_id="+entityID+"), null);";
         queries[1]="UPDATE dvd_entity SET library_name=null WHERE entity_id="+entityID;
-
-        queries[2]="UPDATE member m JOIN (SELECT price FROM member_category WHERE category_id = (SELECT category FROM member m WHERE m.member_id="+memberID+")) p SET m.balance = m.balance-p.price";
         return queries;
     }
 
-    public static final String returnDVD(int entityID, String toLibrary){
-        return "UPDATE rental SET (date_return_on,library_return_on) VALUES ("
-                +"'"+today()+"',"  + toLibrary+
-                ") WHERE date_return_on=NULL AND library_return_on=NULL AND entity_id="+entityID;
+    public static final String[] returnDVD(int memberID,int rentalID, String toLibrary){
+        String[] queries = new String[3];
+        queries[0]="UPDATE rental r JOIN" +
+                "(SELECT price FROM member_category WHERE category_id = (SELECT category FROM member WHERE member_id="+memberID+")) p\n" +
+                " SET date_return_on=CURDATE(),library_return_on=\""+toLibrary+"\",money=DATEDIFF(date_taken_from,CURDATE())*p.price WHERE rental_id="+rentalID+"";
+        queries[1]="UPDATE member" +
+                "SET balance=balance-(SELECT money FROM rental WHERE rental.rental_id="+rentalID+")" +
+                "WHERE member.member_id=(SELECT member_id FROM rental WHERE rental.rental_id="+rentalID+")";
+        queries[2]="UPDATE dvd_entity SET library_name=(SELECT library_return_on FROM rental WHERE rental.rental_id="+rentalID+")" +
+                "WHERE entity_id=(SELECT entity_id FROM rental WHERE rental.rental_id="+rentalID+");";
+        return queries;
     }
 
     public static PreparedStatement getAccountDetails(int memberID){

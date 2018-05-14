@@ -54,10 +54,10 @@ public class SQLBuilder {
         return queries;
     }
 
-    public static final String[] returnDVD(int memberID,int rentalID, String toLibrary){
+    public static final String[] returnDVD(int rentalID, String toLibrary){
         String[] queries = new String[3];
         queries[0]="UPDATE rental r JOIN" +
-                "(SELECT price FROM member_category WHERE category_id = (SELECT category FROM member WHERE member_id="+memberID+")) p\n" +
+                "(SELECT price FROM member_category WHERE category_id = (SELECT category FROM member WHERE member_id=(SELECT member_id FROM rental WHERE rental.rental_id="+rentalID+"))) p\n" +
                 " SET date_return_on=CURDATE(),library_return_on=\""+toLibrary+"\",money=DATEDIFF(date_taken_from,CURDATE())*p.price WHERE rental_id="+rentalID+"";
         queries[1]="UPDATE member" +
                 "SET balance=balance-(SELECT money FROM rental WHERE rental.rental_id="+rentalID+")" +

@@ -21,8 +21,8 @@ public class Operator {
         return database.execute(queries[0]) && database.execute(queries[1]);
     }
 
-    public static boolean returnDVD(int memberID,int rentalID, String toLibrary) {
-        String[] queries =SQLBuilder.returnDVD(memberID,rentalID, toLibrary);
+    public static boolean returnDVD(int rentalID, String toLibrary) {
+        String[] queries =SQLBuilder.returnDVD(rentalID, toLibrary);
         return database.execute(queries[0]) && database.execute(queries[1]) && database.execute(queries[2]);
     }
 

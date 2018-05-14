@@ -1,6 +1,7 @@
 package account;
 
 import data.DVDTableProperty;
+import database.Operator;
 import dvd.DVDController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +47,7 @@ public class AccountController {
         amountColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("amountUpToDate"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Float>("priceUpToDate"));
 
-        //        SetTable(null);
+//        SetTable(Operato);
         System.out.println(222);
     }
 

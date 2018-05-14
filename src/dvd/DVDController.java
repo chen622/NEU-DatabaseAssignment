@@ -58,10 +58,13 @@ public class DVDController {
     Label library;
     @FXML
     TextField member;
+    @FXML
+    TextField rentDVDId;
 
-    private ObservableList<DVDTableProperty> dvdData = FXCollections.observableArrayList();
-    private int dvdID;
-    private Stage newStage = new Stage();
+
+    private static ObservableList<DVDTableProperty> dvdData = FXCollections.observableArrayList();
+    private static int dvdID;
+    private static Stage newStage = new Stage();
 
     public void Init() {
         IdColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("dvdId"));
@@ -85,6 +88,7 @@ public class DVDController {
 
     public void ShowBooks(ActionEvent actionEvent) {
         try {
+            Init();
             Main.getStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("dvd.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,7 +98,7 @@ public class DVDController {
     public void ShowBack(ActionEvent actionEvent) {
         try {
             Main.getStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("back.fxml"))));
-            Init();
+//            Init();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,11 +164,7 @@ public class DVDController {
     }
 
     public void SearchRental(ActionEvent actionEvent) {
-        bookName.setText("yudaiyang");
-        renterName.setText("ydy");
-        fromDate.setText("date");
-        library.setText("llg");
-        backBookItem.setEffect(null);
+
     }
 
     public void Return(ActionEvent actionEvent) {
@@ -177,7 +177,8 @@ public class DVDController {
     }
 
     public void Ok(ActionEvent actionEvent) {
-        Operator.rentDVD(Integer.parseInt(member.getText()),dvdID);
+
+        System.out.println(Operator.rentDVD(Integer.parseInt(member.getText()),dvdID));
         newStage.close();
         newStage = new Stage();
     }

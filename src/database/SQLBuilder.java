@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,7 +47,7 @@ public class SQLBuilder {
         queries[0]="INSERT INTO rental (member_id,entity_id,date_taken_from ,library_taken_from,money ) VALUES " +
                 "("+memberID+","
                 +entityID+ ","
-                +DateFormat.getDateInstance().format(new Date())+"," +
+                +today()+"," +
                 "(SELECT library_name FROM dvd_entity WHERE entity_id="+entityID+")," +
                 "(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
                 ")";
@@ -58,11 +59,16 @@ public class SQLBuilder {
 
     public static final String returnDVD(int entityID, String toLibrary){
         return "UPDATE rental SET (date_return_on,library_return_on) VALUES ("
-                +DateFormat.getDateInstance().format(new Date())+"," + toLibrary+
+                +today()+"," + toLibrary+
                 ") WHERE date_return_on=NULL AND library_return_on=NULL AND entity_id="+entityID;
     }
 
     public static PreparedStatement getAccountDetails(int memberID){
         return null;
+    }
+
+    public static String today(){
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
     }
 }

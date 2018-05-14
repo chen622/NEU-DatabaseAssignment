@@ -44,16 +44,16 @@ public class SQLBuilder {
 
     public static final String[] rentDVD(int memberID, int entityID){
         String[] queries = new String[3];
-        queries[0]="INSERT INTO rental (member_id,entity_id,date_taken_from ,library_taken_from,money ) VALUES " +
+        queries[0]="INSERT INTO rental (member_id,entity_id,date_taken_from,library_taken_from,money ) VALUES " +
                 "("+memberID+","
                 +entityID+ ","
                 +"'"+today()+"'," +
-                "(SELECT library_name FROM dvd_entity WHERE entity_id="+entityID+")," +
+                "(SELECT library_name FROM dvd_entity WHERE dvd_entity.entity_id="+entityID+")," +
                 "(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))" +
                 ")";
         queries[1]="UPDATE dvd_entity SET library_name=null WHERE entity_id="+entityID;
 
-        queries[2]="UPDATE member SET balance=balance-(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id=\"+memberID+\"))";
+        queries[2]="UPDATE member SET balance=balance-(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id="+memberID+"))";
         return queries;
     }
 

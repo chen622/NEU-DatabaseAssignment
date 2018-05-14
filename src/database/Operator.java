@@ -30,7 +30,7 @@ public class Operator {
         String whereCondition = "WHERE "
                 + ((library == null || library.equals("") ? "" : "library_name LIKE '%" + library + "%' AND ")
                 + (title == null || title.equals("") ? "" : "title LIKE '%" + title + "%' AND ")
-                + (genre == null || genre.equals("") ? "" : "genre=" + genre ));
+                + (genre == null || genre.equals("") ? "" : "genre='" + genre +"'"));
 
         if(whereCondition.endsWith("AND "))whereCondition=whereCondition.substring(0,whereCondition.length()-5);
         if(whereCondition.endsWith("WHERE "))whereCondition="";

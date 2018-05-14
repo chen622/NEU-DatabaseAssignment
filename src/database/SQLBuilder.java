@@ -57,10 +57,10 @@ public class SQLBuilder {
     public static final String[] returnDVD(int rentalID, String toLibrary){
         String[] queries = new String[3];
         queries[0]="UPDATE rental r JOIN" +
-                "(SELECT price FROM member_category WHERE category_id = (SELECT category FROM member WHERE member_id=(SELECT member_id FROM rental WHERE rental.rental_id="+rentalID+"))) p\n" +
+                "(SELECT price FROM member_category WHERE category_id = (SELECT category FROM member WHERE member_id=(SELECT member_id FROM rental WHERE rental.rental_id="+rentalID+"))) p" +
                 " SET date_return_on=CURDATE(),library_return_on=\""+toLibrary+"\",money=DATEDIFF(date_taken_from,CURDATE())*p.price WHERE rental_id="+rentalID+"";
-        queries[1]="UPDATE member" +
-                "SET balance=balance-(SELECT money FROM rental WHERE rental.rental_id="+rentalID+")" +
+        queries[1]="UPDATE member " +
+                "SET balance=balance-(SELECT money FROM rental WHERE rental.rental_id="+rentalID+") " +
                 "WHERE member.member_id=(SELECT member_id FROM rental WHERE rental.rental_id="+rentalID+")";
         queries[2]="UPDATE dvd_entity SET library_name=(SELECT library_return_on FROM rental WHERE rental.rental_id="+rentalID+")" +
                 "WHERE entity_id=(SELECT entity_id FROM rental WHERE rental.rental_id="+rentalID+");";

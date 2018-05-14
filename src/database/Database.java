@@ -36,4 +36,19 @@ public class Database {
         }
         return null;
     }
+
+    /**
+     * Execute the operation to the database only.
+     * @param sql The operation that user want
+     * @return The resultSet of the operation
+     */
+    public boolean execute(String sql) {
+        try {
+            return statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }

@@ -30,7 +30,7 @@ public class Operator {
         String whereCondition = "WHERE "
                 + ((library == null || library.equals("") ? "" : "library_name LIKE '" + library + "' AND")
                 + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
-                + (genre == null || genre.equals("") ? "" : "genre='" + genre + "'"));
+                + (genre == null || genre.equals("") ? "" : "genre=" + genre ));
 
         if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
         if(whereCondition.endsWith("WHERE "))whereCondition="";
@@ -56,8 +56,8 @@ public class Operator {
 
     public static ArrayList<Rental> rentals(Integer memberID, String library, String title) throws SQLException {
         String whereCondition = "WHERE "
-                + ((library == null || library.equals("") ? "" : "library_name LIKE " + library + " AND")
-                + (title == null || title.equals("") ? "" : "title LIKE " + title + " AND")
+                + ((library == null || library.equals("") ? "" : "library_name LIKE '" + library + "' AND")
+                + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
                 + (memberID == null || memberID.equals("") ? "" : "member_id=" + memberID));
 
         if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
@@ -81,7 +81,7 @@ public class Operator {
     public static ArrayList<Account> accounts(Integer memberID) throws SQLException {
         ResultSet resultSet = database.executeQuery(
                 "SELECT member.member_id,member_name,member_address,category,balance,COUNT(*) AS total_times,SUM(money) AS amount_paid FROM rental LEFT JOIN member ON rental.member_id=member.member_id"
-                + (memberID==null?"":"WHERE member.member_id=1")
+                + (memberID==null?"":"WHERE member.member_id="+memberID)
         );
         ArrayList<Account> accounts = new ArrayList<Account>();
         while (resultSet.next()) {

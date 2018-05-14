@@ -66,7 +66,7 @@ public class DVDController {
     private static ObservableList<DVDTableProperty> dvdData = FXCollections.observableArrayList();
     private static int dvdID;
     private static Stage newStage = new Stage();
-    private boolean isInit =false;
+    private boolean isInit = false;
 
     public void Init() {
         isInit = true;
@@ -79,7 +79,7 @@ public class DVDController {
         LibraryColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("library"));
 
         try {
-            SetTable(Operator.dvds(null,null,null));
+            SetTable(Operator.dvds(null, null, null));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,9 +118,9 @@ public class DVDController {
         dvdTable.setItems(null);
         Iterator<DVD> iterator = list.iterator();
         DVD dvd;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             dvd = iterator.next();
-            dvdData.add(new DVDTableProperty(dvd.getDvdId(),dvd.getTitle(),dvd.getReleaseYear(),dvd.getDirector(),dvd.getGenre(),dvd.getCast(),dvd.getLibrary()));
+            dvdData.add(new DVDTableProperty(dvd.getDvdId(), dvd.getTitle(), dvd.getReleaseYear(), dvd.getDirector(), dvd.getGenre(), dvd.getCast(), dvd.getLibrary()));
         }
         dvdTable.setItems(dvdData);
         dvdTable.setRowFactory(new Callback<TableView, TableRow>() {
@@ -130,7 +130,7 @@ public class DVDController {
                 tableRow.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        if(tableRow.getIndex() < dvdData.size()) {
+                        if (tableRow.getIndex() < dvdData.size()) {
                             dvdID = list.get(tableRow.getIndex()).getDvdId();
                             try {
                                 newStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("alert.fxml"))));
@@ -149,18 +149,18 @@ public class DVDController {
     public void SearchDVD(ActionEvent actionEvent) {
         if (isInit == false)
             Init();
-        String[] array = {null,null,null};
-        if (dvdLibrary.getText()!=null){
+        String[] array = {null, null, null};
+        if (dvdLibrary.getText() != null) {
             array[0] = dvdLibrary.getText();
         }
-        if (dvdTitle.getText()!=null){
+        if (dvdTitle.getText() != null) {
             array[1] = dvdTitle.getText();
         }
-        if (genre.getValue()!=null){
-            array[2] = (String)genre.getValue();
+        if (genre.getValue() != null) {
+            array[2] = (String) genre.getValue();
         }
         try {
-            SetTable(Operator.dvds(array[0],array[1],array[2]));
+            SetTable(Operator.dvds(array[0], array[1], array[2]));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,19 +169,20 @@ public class DVDController {
     public void SearchRental(ActionEvent actionEvent) {
         try {
             Rental rental = Operator.getNotReturnedRentalByEntity(Integer.parseInt(rentDVDId.getText()));
-            System.out.println(rental.getLibrary());
-            backBookItem.setEffect(null);
-            bookName.setText(rental.getBookName());
-            renterName.setText(rental.getRenterName());
-            fromDate.setText(rental.getFromDate());
-            library.setText(rental.getLibrary());
+            if (rental != null) {
+                backBookItem.setEffect(null);
+                bookName.setText(rental.getBookName());
+                renterName.setText(rental.getRenterName());
+                fromDate.setText(rental.getFromDate());
+                library.setText(rental.getLibrary());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void Return(ActionEvent actionEvent) {
-        Operator.returnDVD(Integer.parseInt(rentDVDId.getText()),"NEUHN");
+        Operator.returnDVD(Integer.parseInt(rentDVDId.getText()), "NEUHN");
     }
 
     public void Cancel(ActionEvent actionEvent) {
@@ -191,7 +192,7 @@ public class DVDController {
 
     public void Ok(ActionEvent actionEvent) {
 
-        System.out.println(Operator.rentDVD(Integer.parseInt(member.getText()),dvdID));
+        System.out.println(Operator.rentDVD(Integer.parseInt(member.getText()), dvdID));
         newStage.close();
         newStage = new Stage();
     }

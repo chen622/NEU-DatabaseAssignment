@@ -18,13 +18,13 @@ public class Operator {
 
     public static boolean rentDVD(int memberID, int entityID) {
         String[] queries = SQLBuilder.rentDVD(memberID, entityID);
+        return database.execute(queries[0]) && database.execute(queries[1]);
+    }
+
+    public static boolean returnDVD(int memberID,int rentalID, String toLibrary) {
+        String[] queries =SQLBuilder.returnDVD(memberID,rentalID, toLibrary);
         return database.execute(queries[0]) && database.execute(queries[1]) && database.execute(queries[2]);
     }
-
-    public static boolean returnDVD(int entityID, String toLibrary) {
-        return database.execute(SQLBuilder.returnDVD(entityID, toLibrary));
-    }
-
 
     public static ArrayList<DVD> dvds(String library, String title, String genre) throws SQLException {
         String whereCondition = "AND "
@@ -94,6 +94,7 @@ public class Operator {
                         " AND rental.entity_id="+entityID+
                         " AND rental.library_return_on IS NULL"
         );
+
         ArrayList<Rental> rentals = new ArrayList<Rental>();
         while (resultSet.next()) {
             rentals.add(new Rental(

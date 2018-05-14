@@ -2,6 +2,7 @@ package dvd;
 
 import data.DVD;
 import data.DVDTableProperty;
+import data.Rental;
 import database.Operator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,7 +91,6 @@ public class DVDController {
 
     public void ShowBooks(ActionEvent actionEvent) {
         try {
-            Init();
             Main.getStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("dvd.fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,7 +100,6 @@ public class DVDController {
     public void ShowBack(ActionEvent actionEvent) {
         try {
             Main.getStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("back.fxml"))));
-//            Init();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,11 +167,21 @@ public class DVDController {
     }
 
     public void SearchRental(ActionEvent actionEvent) {
-
+        try {
+            Rental rental = Operator.getNotReturnedRentalByEntity(Integer.parseInt(rentDVDId.getText()));
+            System.out.println(rental.getLibrary());
+            backBookItem.setEffect(null);
+            bookName.setText(rental.getBookName());
+            renterName.setText(rental.getRenterName());
+            fromDate.setText(rental.getFromDate());
+            library.setText(rental.getLibrary());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void Return(ActionEvent actionEvent) {
-
+        Operator.returnDVD(Integer.parseInt(rentDVDId.getText()),"NEUHN");
     }
 
     public void Cancel(ActionEvent actionEvent) {

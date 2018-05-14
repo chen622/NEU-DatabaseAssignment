@@ -98,7 +98,7 @@ public class Operator {
         ArrayList<Rental> rentals = new ArrayList<Rental>();
         while (resultSet.next()) {
             rentals.add(new Rental(
-                    resultSet.getString("library_name"),
+                    resultSet.getString("library_taken_from"),
                     resultSet.getString("title"),
                     resultSet.getString("member_name"),
                     resultSet.getString("date_taken_from")

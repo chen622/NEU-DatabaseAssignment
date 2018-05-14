@@ -84,6 +84,28 @@ public class Operator {
         return rentals;
     }
 
+
+    public static Rental getNotReturnedRentalByEntity(Integer entityID) throws SQLException {
+
+        ResultSet resultSet = database.executeQuery(
+                "SELECT * FROM rental,member,dvd_entity,dvd_prop " +
+                        "WHERE rental.member_id=member.member_id AND rental.entity_id=dvd_entity.entity_id" +
+                        " AND dvd_entity.prop_id=dvd_prop.prop_id" +
+                        " AND rental.entity_id="+entityID+
+                        " AND rental.library_return_on IS NULL"
+        );
+        ArrayList<Rental> rentals = new ArrayList<Rental>();
+        while (resultSet.next()) {
+            rentals.add(new Rental(
+                    resultSet.getString("library_name"),
+                    resultSet.getString("title"),
+                    resultSet.getString("member_name"),
+                    resultSet.getString("date_taken_from")
+            ));
+        }
+        return rentals.get(0);
+    }
+
     public static ArrayList<Account> accounts(Integer memberID) throws SQLException {
         ResultSet resultSet = database.executeQuery(
                 "SELECT member.member_id,member_name,member_address,category,balance,COUNT(*) AS total_times,SUM(money) AS amount_paid FROM rental LEFT JOIN member ON rental.member_id=member.member_id"

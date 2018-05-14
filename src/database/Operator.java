@@ -6,6 +6,7 @@ import data.Rental;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Operator {
 
@@ -25,7 +26,7 @@ public class Operator {
     }
 
 
-    public static DVD[] dvds(String library, String title, String genre) throws SQLException {
+    public static ArrayList<DVD> dvds(String library, String title, String genre) throws SQLException {
         String whereCondition = "WHERE "
                 + ((library == null || library.equals("") ? "" : "library_name LIKE " + library + " AND")
                 + (title == null || title.equals("") ? "" : "title LIKE " + title + " AND")
@@ -38,10 +39,9 @@ public class Operator {
                 "SELECT *, (SELECT GROUP_CONCAT(cast.cast) FROM cast WHERE cast.prop_id=dvd_entity.prop_id) as cast, (SELECT GROUP_CONCAT(genre_type.genre_type_name) as genres FROM genre_type,dvd_genre WHERE genre_type.genre_type_id=dvd_genre.genre_type_id AND dvd_genre.prop_id=dvd_entity.prop_id) as genre FROM dvd_entity JOIN dvd_prop ON dvd_entity.prop_id=dvd_prop.prop_id "
                         + ((whereCondition == null || whereCondition.equals("")) ? "" : whereCondition)
         );
-        DVD[] dvds = new DVD[resultSet.getFetchSize()];
-        int i = 0;
+        ArrayList<DVD> dvds = new ArrayList<>();
         while (resultSet.next()) {
-            dvds[i] = new DVD(
+            dvds.add(new DVD(
                     resultSet.getInt("entity_id"),
                     resultSet.getString("title"),
                     resultSet.getString("release_date"),
@@ -49,13 +49,12 @@ public class Operator {
                     resultSet.getString("genre"),
                     resultSet.getString("cast"),
                     resultSet.getString("library_name")
-            );
-            i++;
+            ));
         }
         return dvds;
     }
 
-    public static Rental[] rentals(Integer memberID, String library, String title) throws SQLException {
+    public static ArrayList<Rental> rentals(Integer memberID, String library, String title) throws SQLException {
         String whereCondition = "WHERE "
                 + ((library == null || library.equals("") ? "" : "library_name LIKE " + library + " AND")
                 + (title == null || title.equals("") ? "" : "title LIKE " + title + " AND")
@@ -67,36 +66,32 @@ public class Operator {
                 "SELECT * FROM rental,member,dvd_entity,dvd_prop WHERE rental.member_id=member.member_id AND rental.entity_id=dvd_entity.entity_id AND dvd_entity.prop_id=dvd_prop.prop_id"
                         + ((whereCondition == null || whereCondition.equals("")) ? "" : whereCondition)
         );
-        Rental[] rentals = new Rental[resultSet.getFetchSize()];
-        int i = 0;
+        ArrayList<Rental> rentals = new ArrayList<Rental>();
         while (resultSet.next()) {
-            rentals[i] = new Rental(
+            rentals.add(new Rental(
                     resultSet.getString("library_name"),
                     resultSet.getString("title"),
                     resultSet.getString("member_name"),
                     resultSet.getString("date_taken_from")
-            );
-            i++;
+            ));
         }
         return rentals;
     }
 
-    public static Account[] accounts(Integer memberID) throws SQLException {
+    public static ArrayList<Account> accounts(Integer memberID) throws SQLException {
         ResultSet resultSet = database.executeQuery(
                 "SELECT member.member_id,member_name,member_address,category,balance,COUNT(*) AS total_times,SUM(money) AS amount_paid FROM rental LEFT JOIN member ON rental.member_id=member.member_id"
                 + (memberID==null?"":"WHERE member.member_id=1")
         );
-        Account[] accounts = new Account[resultSet.getFetchSize()];
-        int i = 0;
+        ArrayList<Account> accounts = new ArrayList<Account>();
         while (resultSet.next()) {
-            accounts[i] = new Account(
+            accounts.add(new Account(
                     resultSet.getString("member_name"),
                     resultSet.getString("category"),
                     resultSet.getFloat("balance"),
                     resultSet.getFloat("amount_paid"),
                     resultSet.getInt("total_times")
-            );
-            i++;
+            ));
         }
         return accounts;
     }

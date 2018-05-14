@@ -65,8 +65,10 @@ public class DVDController {
     private static ObservableList<DVDTableProperty> dvdData = FXCollections.observableArrayList();
     private static int dvdID;
     private static Stage newStage = new Stage();
+    private boolean isInit =false;
 
     public void Init() {
+        isInit = true;
         IdColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("dvdId"));
         TitleColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("title"));
         ReleaseYearColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("releaseYear"));
@@ -146,6 +148,8 @@ public class DVDController {
     }
 
     public void SearchDVD(ActionEvent actionEvent) {
+        if (isInit == false)
+            Init();
         String[] array = {null,null,null};
         if (dvdLibrary.getText()!=null){
             array[0] = dvdLibrary.getText();

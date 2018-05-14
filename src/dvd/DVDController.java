@@ -1,6 +1,8 @@
 package dvd;
 
+import data.DVD;
 import data.DVDTableProperty;
+import database.Operator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.util.Callback;
 import login.Main;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 public class DVDController {
@@ -59,7 +62,11 @@ public class DVDController {
         CastColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("cast"));
         LibraryColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("library"));
 
-//        SetTable(null);
+        try {
+            SetTable(Operator.dvds(null,null,null));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println(111);
 
         genre.setItems(FXCollections.observableArrayList("comedy", "action", "horror", "romance", "factual"));
@@ -91,10 +98,12 @@ public class DVDController {
         }
     }
 
-    public void SetTable(DVDTableProperty[] list) {
+    public void SetTable(DVD[] list) {
         dvdData.clear();
         dvdTable.setItems(null);
-        dvdData.addAll(list);
+        for (int i = 0; i < list.length; i++) {
+            dvdData.add(new DVDTableProperty(list[i].getDvdId(),list[i].getTitle(),list[i].getReleaseYear(),list[i].getDirector(),list[i].getGenre(),list[i].getCast(),list[i].getLibrary()));
+        }
         dvdTable.setItems(dvdData);
         dvdTable.setRowFactory(new Callback<TableView, TableRow>() {
             @Override

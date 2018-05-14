@@ -30,6 +30,7 @@ public class Database {
      */
     public ResultSet executeQuery(String sql) {
         try {
+            System.out.println(sql);
             return statement.executeQuery(sql);
         } catch (SQLException e) {
             e.printStackTrace();

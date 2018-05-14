@@ -1,6 +1,7 @@
 package login;
 
 import database.Database;
+import database.Operator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -36,6 +37,7 @@ public class Main extends Application {
         primaryStage.setTitle("Library System");
         primaryStage.setScene(new Scene(root));
         DVDController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        Operator.init();
         controller.Init();
         //Controller中写的初始化方法
         primaryStage.show();

@@ -52,7 +52,7 @@ public class SQLBuilder {
                 ")";
         queries[1]="UPDATE dvd_entity SET library_name=null WHERE entity_id="+entityID;
 
-        queries[2]="UPDATE member SET balance=balance-(SELECT price FROM category WHERE category_id=(SELECT category FROM member WHERE member_id=\"+memberID+\"))";
+        queries[2]="UPDATE member SET balance=balance-(SELECT price FROM member_category WHERE category_id=(SELECT category FROM member WHERE member_id=\"+memberID+\"))";
         return queries;
     }
 

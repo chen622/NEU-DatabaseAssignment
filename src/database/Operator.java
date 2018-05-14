@@ -32,7 +32,7 @@ public class Operator {
                 + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
                 + (genre == null || genre.equals("") ? "" : "genre=" + genre ));
 
-        if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
+        if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(0,whereCondition.length()-4);
         if(whereCondition.endsWith("WHERE "))whereCondition="";
         // WHERE CONDITION 直接写为数据库的条件 为空则返回所有
         ResultSet resultSet = database.executeQuery(
@@ -60,7 +60,7 @@ public class Operator {
                 + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
                 + (memberID == null || memberID.equals("") ? "" : "member_id=" + memberID));
 
-        if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(whereCondition.length()-4,whereCondition.length()-1);
+        if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(0,whereCondition.length()-4);
         if(whereCondition.endsWith("WHERE "))whereCondition="";
         ResultSet resultSet = database.executeQuery(
                 "SELECT * FROM rental,member,dvd_entity,dvd_prop WHERE rental.member_id=member.member_id AND rental.entity_id=dvd_entity.entity_id AND dvd_entity.prop_id=dvd_prop.prop_id"

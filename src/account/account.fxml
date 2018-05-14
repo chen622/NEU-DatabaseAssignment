@@ -2,7 +2,6 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dvd.DVDController">
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="account.AccountController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -37,27 +36,17 @@
       <items>
         <AnchorPane maxWidth="500.0">
           <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="112.0" prefWidth="296.0" style="&#10;" text="DVDs" textAlignment="CENTER" textFill="#448aff" wrapText="false" AnchorPane.bottomAnchor="654.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="112.0" prefWidth="296.0" style="&#10;" text="Account" textAlignment="CENTER" textFill="#448aff" wrapText="false" AnchorPane.bottomAnchor="654.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <font>
                 <Font name="Arial Bold" size="60.0" fx:id="x1" />
               </font>
             </Label>
-                  <Label layoutX="65.0" layoutY="283.0" text="Library :" AnchorPane.leftAnchor="65.0">
+                  <Label layoutX="39.0" layoutY="384.0" text="Name :" AnchorPane.leftAnchor="39.0">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="34.0" layoutY="384.0" text="DVD Title :" AnchorPane.leftAnchor="34.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="164.0" layoutY="284.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="164.0" layoutY="382.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
+                  <TextField layoutX="140.0" layoutY="382.0" prefHeight="36.0" prefWidth="238.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="5.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -67,12 +56,6 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Label layoutX="74.0" layoutY="474.0" text="Genre :">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="genre" layoutX="164.0" layoutY="478.0" prefWidth="150.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0" />
           </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />

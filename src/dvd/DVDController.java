@@ -19,7 +19,9 @@ import login.Main;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 public class DVDController {
     @FXML
@@ -40,6 +42,10 @@ public class DVDController {
     TableColumn LibraryColumn;
     @FXML
     ChoiceBox genre;
+    @FXML
+    TextField dvdLibrary;
+    @FXML
+    TextField dvdTitle;
     @FXML
     VBox backBookItem;
     @FXML
@@ -98,11 +104,14 @@ public class DVDController {
         }
     }
 
-    public void SetTable(DVD[] list) {
+    public void SetTable(ArrayList<DVD> list) {
         dvdData.clear();
         dvdTable.setItems(null);
-        for (int i = 0; i < list.length; i++) {
-            dvdData.add(new DVDTableProperty(list[i].getDvdId(),list[i].getTitle(),list[i].getReleaseYear(),list[i].getDirector(),list[i].getGenre(),list[i].getCast(),list[i].getLibrary()));
+        Iterator<DVD> iterator = list.iterator();
+        DVD dvd;
+        while (iterator.hasNext()){
+            dvd = iterator.next();
+            dvdData.add(new DVDTableProperty(dvd.getDvdId(),dvd.getTitle(),dvd.getReleaseYear(),dvd.getDirector(),dvd.getGenre(),dvd.getCast(),dvd.getLibrary()));
         }
         dvdTable.setItems(dvdData);
         dvdTable.setRowFactory(new Callback<TableView, TableRow>() {
@@ -118,6 +127,24 @@ public class DVDController {
                 return tableRow;
             }
         });
+    }
+
+    public void SearchDVD(ActionEvent actionEvent) {
+        String[] array = {null,null,null};
+        if (dvdLibrary.getText()!=null){
+            array[0] = dvdLibrary.getText();
+        }
+        if (dvdTitle.getText()!=null){
+            array[1] = dvdTitle.getText();
+        }
+        if (genre.getValue()!=null){
+            array[2] = (String)genre.getValue();
+        }
+        try {
+            SetTable(Operator.dvds(array[0],array[1],array[2]));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void SearchRental(ActionEvent actionEvent) {

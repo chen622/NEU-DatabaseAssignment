@@ -55,17 +55,17 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="164.0" layoutY="284.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
+                  <TextField fx:id="dvdLibrary" layoutX="164.0" layoutY="284.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="164.0" layoutY="382.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
+                  <TextField fx:id="dvdTitle" layoutX="164.0" layoutY="382.0" prefHeight="30.0" prefWidth="170.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" text="Search">
+                  <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#SearchDVD" text="Search">
                      <font>
                         <Font size="24.0" />
                      </font>

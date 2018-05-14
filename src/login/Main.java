@@ -1,3 +1,5 @@
+package login;
+
 import database.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL location = getClass().getResource("dvd/dvd.fxml");
+        URL location = getClass().getResource("../dvd/dvd.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -34,6 +36,7 @@ public class Main extends Application {
         primaryStage.setTitle("Library System");
         primaryStage.setScene(new Scene(root));
         DVDController controller = fxmlLoader.getController();   //获取Controller的实例对象
+        controller.Init();
         //Controller中写的初始化方法
         primaryStage.show();
     }

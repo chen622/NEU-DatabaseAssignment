@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dvd.DVDController">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="DVDs">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#ShowBooks" text="Rent" />
+                        <MenuItem mnemonicParsing="false" onAction="#ShowBack" text="Back" />
+                    </items></Menu>
+                <Menu mnemonicParsing="false" onAction="#ShowAccount" text="Account" />
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About NEU" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.32303839732888145" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane maxWidth="500.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="112.0" prefWidth="296.0" style="&#10;" text="DVDs" textAlignment="CENTER" textFill="#448aff" wrapText="false" AnchorPane.bottomAnchor="654.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font name="Arial Bold" size="60.0" fx:id="x1" />
+                            </font>
+                        </Label>
+                        <Label layoutX="34.0" layoutY="384.0" text="DVD Id :" AnchorPane.leftAnchor="34.0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <TextField layoutX="145.0" layoutY="382.0" prefHeight="36.0" prefWidth="226.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="12.0">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </TextField>
+                        <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#SearchRental" text="Search">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                        </Button>
+                    </children>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                    </cursor>
+                </AnchorPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="backBookItem" prefHeight="749.0" prefWidth="809.0">
+                     <children>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="807.0">
+                           <children>
+                              <Label layoutX="151.0" layoutY="47.0" prefHeight="87.0" prefWidth="226.0" text="Book name :" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="bookName" layoutX="373.0" layoutY="48.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="20.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="807.0">
+                           <children>
+                              <Label layoutX="122.0" layoutY="38.0" prefHeight="61.0" prefWidth="255.0" text="Renter name :" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="renterName" layoutX="373.0" layoutY="35.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="20.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="807.0">
+                           <children>
+                              <Label layoutX="120.0" layoutY="35.0" prefHeight="61.0" prefWidth="306.0" text="Take-from date :" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="fromDate" layoutX="373.0" layoutY="35.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="20.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="807.0">
+                           <children>
+                              <Label layoutX="36.0" layoutY="70.0" prefHeight="61.0" prefWidth="341.0" text="Take-from library :" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="20.0">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="library" layoutX="378.0" layoutY="37.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="20.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+
+                              <Button layoutX="329.0" layoutY="7.0" mnemonicParsing="false" onAction="#Return" prefHeight="48.0" prefWidth="120.0" text="Button" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="7.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <effect>
+                        <GaussianBlur radius="32.0" />
+                     </effect>
+                  </VBox>
+               </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

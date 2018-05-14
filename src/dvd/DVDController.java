@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import login.Main;
 
@@ -21,7 +22,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 
 public class DVDController {
     @FXML
@@ -56,8 +56,12 @@ public class DVDController {
     Label fromDate;
     @FXML
     Label library;
+    @FXML
+    TextField member;
 
     private ObservableList<DVDTableProperty> dvdData = FXCollections.observableArrayList();
+    private int dvdID;
+    private Stage newStage = new Stage();
 
     public void Init() {
         IdColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("dvdId"));
@@ -121,7 +125,15 @@ public class DVDController {
                 tableRow.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        System.out.println(tableRow.getIndex()+"  "+dvdData.size());
+                        if(tableRow.getIndex() < dvdData.size()) {
+                            dvdID = list.get(tableRow.getIndex()).getDvdId();
+                            try {
+                                newStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("alert.fxml"))));
+                                newStage.show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 });
                 return tableRow;
@@ -157,5 +169,16 @@ public class DVDController {
 
     public void Return(ActionEvent actionEvent) {
 
+    }
+
+    public void Cancel(ActionEvent actionEvent) {
+        newStage.close();
+        newStage = new Stage();
+    }
+
+    public void Ok(ActionEvent actionEvent) {
+        Operator.rentDVD(Integer.parseInt(member.getText()),dvdID);
+        newStage.close();
+        newStage = new Stage();
     }
 }

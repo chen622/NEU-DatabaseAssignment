@@ -39,7 +39,7 @@ public class Database {
     }
 
     /**
-     * Execute the operation to the database only.
+     * Execute the operation to the database only.dvd_prop_id_constraint
      * @param sql The operation that user want
      * @return The resultSet of the operation
      */

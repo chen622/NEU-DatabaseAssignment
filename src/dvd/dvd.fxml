@@ -25,7 +25,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#ShowBooks" text="Rent" />
                   <MenuItem mnemonicParsing="false" onAction="#ShowBack" text="Back" />
                </items></Menu>
-        <Menu mnemonicParsing="false" onAction="#ShowAccount" text="Account" />
+        <Menu mnemonicParsing="false" text="Account">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ShowAccount" text="Manage" />
+               </items></Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
             <MenuItem mnemonicParsing="false" text="About NEU" />

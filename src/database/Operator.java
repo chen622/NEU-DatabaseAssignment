@@ -28,8 +28,8 @@ public class Operator {
 
     public static ArrayList<DVD> dvds(String library, String title, String genre) throws SQLException {
         String whereCondition = "WHERE "
-                + ((library == null || library.equals("") ? "" : "library_name LIKE '" + library + "' AND")
-                + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
+                + ((library == null || library.equals("") ? "" : "library_name LIKE '%" + library + "%' AND")
+                + (title == null || title.equals("") ? "" : "title LIKE '%" + title + "%' AND")
                 + (genre == null || genre.equals("") ? "" : "genre=" + genre ));
 
         if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(0,whereCondition.length()-4);
@@ -56,8 +56,8 @@ public class Operator {
 
     public static ArrayList<Rental> rentals(Integer memberID, String library, String title) throws SQLException {
         String whereCondition = "WHERE "
-                + ((library == null || library.equals("") ? "" : "library_name LIKE '" + library + "' AND")
-                + (title == null || title.equals("") ? "" : "title LIKE '" + title + "' AND")
+                + ((library == null || library.equals("") ? "" : "library_name LIKE '%" + library + "%' AND")
+                + (title == null || title.equals("") ? "" : "title LIKE '%" + title + "%' AND")
                 + (memberID == null || memberID.equals("") ? "" : "member_id=" + memberID));
 
         if(whereCondition.endsWith("AND"))whereCondition=whereCondition.substring(0,whereCondition.length()-4);

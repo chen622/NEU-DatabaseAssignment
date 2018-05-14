@@ -46,6 +46,8 @@ public class AccountController {
         amountColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("amountUpToDate"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Float>("priceUpToDate"));
 
+        //        SetTable(null);
+        System.out.println(222);
     }
 
 

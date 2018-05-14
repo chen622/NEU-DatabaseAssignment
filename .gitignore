@@ -1,2 +1,4 @@
 # Editor directories and files
 .idea
+.git
+out

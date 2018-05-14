@@ -65,15 +65,13 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0">
                      <children>
-                        <TableView fx:id="dvdTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="accountTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
-                              <TableColumn fx:id="IdColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="DVDId" />
-                              <TableColumn fx:id="TitleColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Title" />
-                              <TableColumn fx:id="ReleaseYearColumn" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Release Year" />
-                              <TableColumn fx:id="DirectorColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Director" />
-                              <TableColumn fx:id="GenreColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Genre" />
-                              <TableColumn fx:id="CastColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Cast" />
-                              <TableColumn fx:id="LibraryColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Library" />
+                              <TableColumn fx:id="nameColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Name" />
+                              <TableColumn fx:id="categoryColumn" maxWidth="-1.0" minWidth="130.0" prefWidth="-1.0" text="Category" />
+                              <TableColumn fx:id="balanceColumn" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Balance" />
+                              <TableColumn fx:id="amountColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="priceUpToDate" />
+                              <TableColumn fx:id="priceColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="AmountUpToDate" />
                            </columns>
                         </TableView>
                      </children>

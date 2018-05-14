@@ -1,5 +1,7 @@
 # Editor directories and files
 .idea
+<<<<<<< HEAD
 .git
 out
 out/*
+/out

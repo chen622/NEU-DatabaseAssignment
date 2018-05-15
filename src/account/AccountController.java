@@ -56,11 +56,6 @@ public class AccountController {
         amountColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("amountUpToDate"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Float>("priceUpToDate"));
         isInit = true;
-        try {
-            SetTable(Operator.accounts());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         System.out.println(222);
     }
 
@@ -111,9 +106,9 @@ public class AccountController {
 
     public void Search(ActionEvent actionEvent) {
         try {
-            if (isInit = false)
+            if (isInit == false)
                 Init();
-            if (accountid.getText().length()<=0)
+            if (accountid.getText()!=null)
             SetTable(Operator.accounts());
             else
                 SetTable(Operator.accounts(Integer.parseInt(accountid.getText())));

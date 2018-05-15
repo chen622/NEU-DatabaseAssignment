@@ -1,5 +1,7 @@
 package account;
 
+import data.Account;
+import data.AccountTableProperty;
 import data.DVDTableProperty;
 import database.Operator;
 import dvd.DVDController;
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
@@ -22,6 +25,10 @@ import login.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 public class AccountController {
     @FXML
@@ -36,9 +43,11 @@ public class AccountController {
     TableColumn amountColumn;
     @FXML
     TableColumn priceColumn;
+    @FXML
+    TextField accountid;
 
-    private ObservableList<DVDTableProperty> accountData = FXCollections.observableArrayList();
-
+    private ObservableList<AccountTableProperty> accountData = FXCollections.observableArrayList();
+    private boolean isInit = false;
 
     public void Init() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, String>("name"));
@@ -46,11 +55,14 @@ public class AccountController {
         balanceColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Float>("balance"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Integer>("amountUpToDate"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<DVDTableProperty, Float>("priceUpToDate"));
-
-//        SetTable(Operato);
+        isInit = true;
+        try {
+            SetTable(Operator.accounts());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println(222);
     }
-
 
 
     public void ShowBooks(ActionEvent actionEvent) {
@@ -84,23 +96,29 @@ public class AccountController {
         }
     }
 
-    public void SetTable(DVDTableProperty[] list) {
+    public void SetTable(ArrayList list) {
+
         accountData.clear();
         accountTable.setItems(null);
-        accountData.addAll(list);
+        Iterator<Account> iterator = list.iterator();
+        Account account;
+        while (iterator.hasNext()) {
+            account = iterator.next();
+            accountData.add(new AccountTableProperty(account.getName(), account.getCategory(), account.getAmountUpToDate(), account.getBalance(), account.getPriceUpToDate()));
+        }
         accountTable.setItems(accountData);
-        accountTable.setRowFactory(new Callback<TableView, TableRow>() {
-            @Override
-            public TableRow call(TableView param) {
-                TableRow tableRow = new TableRow();
-                tableRow.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        System.out.println(tableRow.getIndex()+"  "+accountData.size());
-                    }
-                });
-                return tableRow;
-            }
-        });
+    }
+
+    public void Search(ActionEvent actionEvent) {
+        try {
+            if (isInit = false)
+                Init();
+            if (accountid.getText().length()<=0)
+            SetTable(Operator.accounts());
+            else
+                SetTable(Operator.accounts(Integer.parseInt(accountid.getText())));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -110,7 +110,24 @@ public class Operator {
     public static ArrayList<Account> accounts(Integer memberID) throws SQLException {
         ResultSet resultSet = database.executeQuery(
                 "SELECT member.member_id,member_name,member_address,category,balance,COUNT(*) AS total_times,SUM(money) AS amount_paid FROM rental LEFT JOIN member ON rental.member_id=member.member_id"
-                + (memberID==null?"":"WHERE member.member_id="+memberID)
+                        + (memberID==null?"":"WHERE member.member_id="+memberID)
+        );
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        while (resultSet.next()) {
+            accounts.add(new Account(
+                    resultSet.getString("member_name"),
+                    resultSet.getString("category"),
+                    resultSet.getFloat("balance"),
+                    resultSet.getFloat("amount_paid"),
+                    resultSet.getInt("total_times")
+            ));
+        }
+        return accounts;
+    }
+
+    public static ArrayList<Account> accounts() throws SQLException {
+        ResultSet resultSet = database.executeQuery(
+                "SELECT member.member_id,member_name,member_address,category,balance,COUNT(*) AS total_times,SUM(money) AS amount_paid FROM rental LEFT JOIN member ON rental.member_id=member.member_idd"
         );
         ArrayList<Account> accounts = new ArrayList<Account>();
         while (resultSet.next()) {

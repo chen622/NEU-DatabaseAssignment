@@ -46,12 +46,12 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="140.0" layoutY="382.0" prefHeight="36.0" prefWidth="238.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="5.0">
+                  <TextField fx:id="accountid" layoutX="140.0" layoutY="382.0" prefHeight="36.0" prefWidth="238.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="5.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" text="Search">
+                  <Button defaultButton="true" layoutX="132.0" layoutY="573.0" minHeight="60.0" minWidth="120.0" mnemonicParsing="false" onAction="#Search" text="Search">
                      <font>
                         <Font size="24.0" />
                      </font>
